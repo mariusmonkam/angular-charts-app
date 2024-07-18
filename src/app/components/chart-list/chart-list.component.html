@@ -1,2 +1,11 @@
-<h2>Chart List</h2>
-<p>This is where we'll display our charts.</p>
+<div class="chart-container">
+  <app-date-range-filter></app-date-range-filter>
+  <ng-container *ngIf="charts$ | async as charts">
+    <div *ngFor="let chart of charts" class="chart">
+      <highcharts-chart
+        [Highcharts]="Highcharts"
+        [options]="getChartOptions(chart)"
+      ></highcharts-chart>
+    </div>
+  </ng-container>
+</div>
