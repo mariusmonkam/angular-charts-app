@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chart-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chart-list.component.html',
-  styleUrl: './chart-list.component.css'
+  styleUrl: './chart-list.component.css',
 })
-export class ChartListComponent {
-
-}
+export class ChartListComponent {}

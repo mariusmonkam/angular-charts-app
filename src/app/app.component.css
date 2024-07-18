@@ -1,0 +1,15 @@
+nav {
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+a {
+  padding: 0.5rem;
+  text-decoration: none;
+  color: #333;
+}
+
+a.active {
+  font-weight: bold;
+  color: #0066cc;
+}
