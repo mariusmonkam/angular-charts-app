@@ -1,4 +1,46 @@
+/* Styles for the entire modal dialog */
+.mat-dialog-container {
+  max-width: 80vw; /* Increase max-width to make the modal larger */
+  width: 90vw; /* Ensure modal takes up a reasonable width relative to the viewport */
+  padding: 24px; /* Padding for content */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for better visibility */
+  overflow: hidden; /* Prevent content overflow */
+}
+
+/* Styling the form inside the modal */
+.chart-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased space between form fields for better readability */
+}
+
+/* Styling form fields to be responsive */
 mat-form-field {
   width: 100%;
-  margin-bottom: 15px;
+}
+
+/* Styling for the dialog actions (buttons) */
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Space between buttons */
+  padding-top: 20px;
+}
+
+/* Optional: Add responsiveness for smaller screens */
+@media (max-width: 600px) {
+  .mat-dialog-container {
+    width: 95vw; /* Ensure modal uses more of the viewport width on small screens */
+    max-width: 95vw; /* Prevents modal from being too large */
+  }
+
+  .chart-form {
+    gap: 15px; /* Reduce space between form fields on smaller screens */
+  }
+
+  mat-dialog-actions {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    align-items: flex-end;
+  }
 }

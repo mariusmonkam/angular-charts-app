@@ -11,6 +11,9 @@
   max-width: 500px; /* Adjust max-width for smaller screens */
   margin-bottom: 20px;
 }
+.chart-list-title {
+  text-align: center;
+}
 
 @media (min-width: 768px) {
   /* Adjust breakpoint as needed */

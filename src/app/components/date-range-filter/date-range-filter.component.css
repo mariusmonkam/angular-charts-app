@@ -7,7 +7,33 @@
 }
 
 .date-range-form mat-form-field {
-  flex: 1 1 45%;
+  flex: 1 1 100%; /* Full width on small screens */
   min-width: 200px;
-  max-width: 480px;
+  max-width: 460px;
+}
+
+@media (min-width: 600px) {
+  .date-range-form mat-form-field {
+    flex: 1 1 45%; /* Two fields per row on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .date-range-form mat-form-field {
+    flex: 1 1 30%; /* Three fields per row on large screens */
+  }
+}
+
+/* Ensure that button aligns with the form fields */
+.date-range-form .button-container {
+  flex: 1 1 100%; /* Full width for button container */
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  align-self: center;
+  margin-top: 20px; /* Space above button */
+}
+
+.date-range-form button {
+  max-width: 150px; /* Limit button width */
+  width: 100%; /* Button width full for smaller screens */
 }

@@ -1,23 +1,21 @@
 <h2 mat-dialog-title>{{ data ? "Edit Chart" : "Add New Chart" }}</h2>
 <mat-dialog-content>
-  <form [formGroup]="chartForm">
+  <form [formGroup]="chartForm" class="chart-form">
     <mat-form-field>
-      <input matInput placeholder="Chart Name" formControlName="name" />
+      <mat-label>Chart Name</mat-label>
+      <input matInput placeholder="Enter chart name" formControlName="name" />
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Chart Type" formControlName="type">
+      <mat-label>Chart Type</mat-label>
+      <mat-select placeholder="Select chart type" formControlName="type">
         <mat-option value="line">Line</mat-option>
         <mat-option value="spline">Spline</mat-option>
         <mat-option value="area">Area</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input
-        matInput
-        type="color"
-        placeholder="Chart Color"
-        formControlName="color"
-      />
+      <mat-label>Chart Color</mat-label>
+      <input matInput type="color" formControlName="color" />
     </mat-form-field>
   </form>
 </mat-dialog-content>
