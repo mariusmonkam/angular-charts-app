@@ -1,13 +1,14 @@
+// src/app/components/chart-list/chart-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Chart } from '../../store/chart/chart.model'; // Adjust this path if needed
+import { Chart } from '../../store/chart/chart.model';
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CommonModule } from '@angular/common';
 import { DateRangeFilterComponent } from '../date-range-filter/date-range-filter.component';
 import { Store } from '@ngrx/store';
-import * as ChartActions from '../../store/chart/chart.actions'; // Import chart actions
-import { selectAllCharts } from '../../store/chart/chart.selectors'; // Assuming you have selectAllCharts selector
+import * as ChartActions from '../../store/chart/chart.actions';
+import { selectChartsWithinDateRange } from '../../store/chart/chart.selectors';
 
 @Component({
   selector: 'app-chart-list',
@@ -17,13 +18,12 @@ import { selectAllCharts } from '../../store/chart/chart.selectors'; // Assuming
   imports: [HighchartsChartModule, CommonModule, DateRangeFilterComponent],
 })
 export class ChartListComponent implements OnInit {
-  charts$: Observable<Chart[]> = this.store.select(selectAllCharts); // Get charts from the store
+  charts$: Observable<Chart[]> = this.store.select(selectChartsWithinDateRange);
   Highcharts: typeof Highcharts = Highcharts;
 
-  constructor(private store: Store<any>) {} // Inject Store service
+  constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
-    // Dispatch the action to load charts from local storage
     this.store.dispatch(ChartActions.loadCharts());
   }
 

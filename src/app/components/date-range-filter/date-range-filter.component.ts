@@ -1,3 +1,4 @@
+// src/app/components/date-range-filter/date-range-filter.component.ts
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -37,12 +38,7 @@ export class DateRangeFilterComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // If you need to do any additional setup, you can do it here
-  }
-  onDateRangeChange(startDate: string, endDate: string) {
-    this.store.dispatch(ChartActions.updateDateRange({ startDate, endDate }));
-  }
+  ngOnInit() {}
 
   onSubmit() {
     if (this.dateRangeForm.valid) {

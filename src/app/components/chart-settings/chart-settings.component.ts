@@ -28,7 +28,7 @@ export class ChartSettingsComponent implements OnInit {
   charts$: Observable<Chart[]>;
 
   constructor(private store: Store, private dialog: MatDialog) {
-    this.charts$ = this.store.select(ChartSelectors.selectAllCharts);
+    this.charts$ = this.store.select(ChartSelectors.selectAll);
   }
 
   ngOnInit(): void {

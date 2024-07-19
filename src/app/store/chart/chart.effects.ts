@@ -1,44 +1,57 @@
 // src/app/store/chart/chart.effects.ts
-
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
 import * as ChartActions from './chart.actions';
+import { SQLiteChartService } from '../../services/sqlite3.service';
 import { Chart } from './chart.model';
-import { exampleChartOptions } from './chart.options';
-import { ChartDataService } from '../../../app/store/chart/chart.services';
 
 @Injectable()
 export class ChartEffects {
   loadCharts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ChartActions.loadCharts),
-      mergeMap(() =>
-        of([
-          {
-            id: '1',
-            name: 'Chart 1',
-            type: 'line',
-            color: '#000',
-            data: this.chartDataService.generateChartData(30),
-            options: exampleChartOptions,
-          },
-          {
-            id: '2',
-            name: 'Chart 2',
-            type: 'spline',
-            color: '#FF0000',
-            data: this.chartDataService.generateChartData(30),
-            options: exampleChartOptions,
-          },
-        ]).pipe(
-          map((charts) =>
-            ChartActions.loadChartsSuccess({
-              charts: charts as unknown as Chart[],
-            })
-          ),
-          catchError((error) => of(ChartActions.loadChartsFailed()))
+      switchMap(() =>
+        this.chartService.getCharts().then(
+          (charts) => ChartActions.loadChartsSuccess({ charts }),
+          (error) => ChartActions.loadChartsFailed()
+        )
+      )
+    )
+  );
+
+  addChart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ChartActions.addChart),
+      mergeMap((action) =>
+        this.chartService.addChart(action.chart).then(
+          () => ChartActions.loadCharts(), // Reload charts after adding
+          (error) => ChartActions.loadChartsFailed()
+        )
+      )
+    )
+  );
+
+  updateChart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ChartActions.updateChart),
+      mergeMap((action) =>
+        this.chartService.updateChart(action.chart).then(
+          () => ChartActions.loadCharts(), // Reload charts after updating
+          (error) => ChartActions.loadChartsFailed()
+        )
+      )
+    )
+  );
+
+  deleteChart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ChartActions.deleteChart),
+      mergeMap((action) =>
+        this.chartService.deleteChart(action.id).then(
+          () => ChartActions.loadCharts(), // Reload charts after deleting
+          (error) => ChartActions.loadChartsFailed()
         )
       )
     )
@@ -46,6 +59,6 @@ export class ChartEffects {
 
   constructor(
     private actions$: Actions,
-    private chartDataService: ChartDataService
+    private chartService: SQLiteChartService
   ) {}
 }
