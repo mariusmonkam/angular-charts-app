@@ -1,3 +1,5 @@
+// src/app/store/chart/chart.effects.ts
+
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
@@ -5,6 +7,7 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import * as ChartActions from './chart.actions';
 import { Chart } from './chart.model';
 import { exampleChartOptions } from './chart.options';
+import { ChartDataService } from '../../../app/store/chart/chart.services';
 
 @Injectable()
 export class ChartEffects {
@@ -12,14 +15,13 @@ export class ChartEffects {
     this.actions$.pipe(
       ofType(ChartActions.loadCharts),
       mergeMap(() =>
-        // Replace this with your actual API call or mock data
         of([
           {
             id: '1',
             name: 'Chart 1',
             type: 'line',
             color: '#000',
-            data: [],
+            data: this.chartDataService.generateChartData(30),
             options: exampleChartOptions,
           },
           {
@@ -27,7 +29,7 @@ export class ChartEffects {
             name: 'Chart 2',
             type: 'spline',
             color: '#FF0000',
-            data: [],
+            data: this.chartDataService.generateChartData(30),
             options: exampleChartOptions,
           },
         ]).pipe(
@@ -42,5 +44,8 @@ export class ChartEffects {
     )
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private chartDataService: ChartDataService
+  ) {}
 }

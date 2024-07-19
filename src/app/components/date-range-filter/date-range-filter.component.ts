@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { updateDateRange } from '../../store/chart/chart.actions';
@@ -6,6 +6,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import * as ChartActions from '../../store/chart/chart.actions';
 
 @Component({
   selector: 'app-date-range-filter',
@@ -18,13 +20,17 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatButtonModule,
   ],
 })
 export class DateRangeFilterComponent implements OnInit {
   dateRangeForm: FormGroup;
+  @Output() dateRangeChanged = new EventEmitter<{
+    startDate: Date;
+    endDate: Date;
+  }>();
 
   constructor(private fb: FormBuilder, private store: Store) {
-    // Initialize the form in the constructor
     this.dateRangeForm = this.fb.group({
       startDate: [''],
       endDate: [''],
@@ -34,11 +40,15 @@ export class DateRangeFilterComponent implements OnInit {
   ngOnInit() {
     // If you need to do any additional setup, you can do it here
   }
+  onDateRangeChange(startDate: string, endDate: string) {
+    this.store.dispatch(ChartActions.updateDateRange({ startDate, endDate }));
+  }
 
   onSubmit() {
     if (this.dateRangeForm.valid) {
       const { startDate, endDate } = this.dateRangeForm.value;
       this.store.dispatch(updateDateRange({ startDate, endDate }));
+      this.dateRangeChanged.emit({ startDate, endDate });
     }
   }
 }

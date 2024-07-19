@@ -1,4 +1,6 @@
 <h2>Chart List</h2>
+<app-date-range-filter></app-date-range-filter>
+
 <div class="chart-container">
   <ng-container *ngIf="charts$ | async as charts">
     <div *ngFor="let chart of charts" class="chart-item">

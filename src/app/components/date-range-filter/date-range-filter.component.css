@@ -1,6 +1,13 @@
 .date-range-form {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+.date-range-form mat-form-field {
+  flex: 1 1 45%;
+  min-width: 200px;
+  max-width: 480px;
 }

@@ -26,3 +26,7 @@ export const updateDateRange = createAction(
   '[Chart] Update Date Range',
   props<{ startDate: string; endDate: string }>()
 );
+export const applyDateFilter = createAction(
+  '[Chart] Apply Date Filter',
+  props<{ startDate: Date; endDate: Date }>()
+);

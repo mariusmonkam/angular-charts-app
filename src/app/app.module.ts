@@ -28,10 +28,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    ChartModalComponent,
-    // any other components
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     BrowserModule,

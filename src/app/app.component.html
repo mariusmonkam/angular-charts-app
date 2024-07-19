@@ -1,11 +1,8 @@
 <mat-toolbar color="primary">
-  <span>Angular Charts App</span>
-  <a mat-button routerLink="/charts" routerLinkActive="active">View Charts</a>
-  <a mat-button routerLink="/settings" routerLinkActive="active"
-    >Chart Settings</a
-  >
+  <span>Angular Charts</span>
+  <nav>
+    <a routerLink="/view" routerLinkActive="active">View Charts</a> |
+    <a routerLink="/settings" routerLinkActive="active">Chart Settings</a>
+  </nav>
 </mat-toolbar>
-
-<app-date-range-filter></app-date-range-filter>
-
 <router-outlet></router-outlet>

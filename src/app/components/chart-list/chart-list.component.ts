@@ -4,13 +4,14 @@ import { Chart } from '../../store/chart/chart.model'; // Update this import pat
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CommonModule } from '@angular/common';
+import { DateRangeFilterComponent } from '../date-range-filter/date-range-filter.component';
 
 @Component({
   selector: 'app-chart-list',
   standalone: true,
   templateUrl: './chart-list.component.html',
   styleUrls: ['./chart-list.component.css'],
-  imports: [HighchartsChartModule, CommonModule],
+  imports: [HighchartsChartModule, CommonModule, DateRangeFilterComponent],
 })
 export class ChartListComponent implements OnInit {
   charts$: Observable<Chart[]> = new Observable<Chart[]>();

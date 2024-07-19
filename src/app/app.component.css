@@ -6,11 +6,6 @@
   justify-content: center;
   height: 100vh; /* Adjust as needed, ensures full viewport height */
 }
-body {
-  font-size: 16px; /* Adjust base font size */
-  margin: 0;
-  padding: 0;
-}
 
 /* Styling for the toolbar and navigation */
 mat-toolbar {
@@ -23,6 +18,7 @@ nav {
   padding: 1rem;
   background-color: #f0f0f0;
   margin-top: 1rem; /* Adds space between toolbar and navigation */
+  justify-content: center;
 }
 
 a {
