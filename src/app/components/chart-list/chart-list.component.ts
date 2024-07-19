@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Chart } from '../../store/chart/chart.model'; // Update this import path if needed
+import { Observable } from 'rxjs';
+import { Chart } from '../../store/chart/chart.model'; // Adjust this path if needed
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CommonModule } from '@angular/common';
 import { DateRangeFilterComponent } from '../date-range-filter/date-range-filter.component';
+import { Store } from '@ngrx/store';
+import * as ChartActions from '../../store/chart/chart.actions'; // Import chart actions
+import { selectAllCharts } from '../../store/chart/chart.selectors'; // Assuming you have selectAllCharts selector
 
 @Component({
   selector: 'app-chart-list',
@@ -14,54 +17,22 @@ import { DateRangeFilterComponent } from '../date-range-filter/date-range-filter
   imports: [HighchartsChartModule, CommonModule, DateRangeFilterComponent],
 })
 export class ChartListComponent implements OnInit {
-  charts$: Observable<Chart[]> = new Observable<Chart[]>();
+  charts$: Observable<Chart[]> = this.store.select(selectAllCharts); // Get charts from the store
   Highcharts: typeof Highcharts = Highcharts;
 
-  ngOnInit(): void {
-    this.charts$ = of([
-      this.generateRandomChartData(10),
-      this.generateRandomChartData(10),
-    ]);
-  }
+  constructor(private store: Store<any>) {} // Inject Store service
 
-  generateRandomChartData(numPoints: number): Chart {
-    const data: number[] = [];
-    const labels: string[] = [];
-    for (let i = 0; i < numPoints; i++) {
-      data.push(Math.random() * 100);
-      labels.push(`Point ${i + 1}`);
-    }
-    return {
-      id: Math.random().toString(),
-      name: 'Random Chart',
-      type: 'line',
-      data,
-      labels,
-    };
+  ngOnInit(): void {
+    // Dispatch the action to load charts from local storage
+    this.store.dispatch(ChartActions.loadCharts());
   }
 
   getChartOptions(chart: Chart): Highcharts.Options {
     return {
-      chart: {
-        type: chart.type as any,
-      },
-      title: {
-        text: chart.name,
-      },
-      xAxis: {
-        categories: chart.labels,
-      },
-      yAxis: {
-        title: {
-          text: 'Value',
-        },
-      },
+      title: { text: chart.name },
+      xAxis: { categories: chart.labels },
       series: [
-        {
-          type: chart.type as any,
-          name: chart.name,
-          data: chart.data,
-        } as any,
+        { data: chart.data, type: chart.type as any, color: chart.color },
       ],
     };
   }

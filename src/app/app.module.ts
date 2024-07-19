@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
@@ -20,12 +20,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 // Components
-import { ChartListComponent } from './components/chart-list/chart-list.component';
-import { DateRangeFilterComponent } from './components/date-range-filter/date-range-filter.component';
-import { ChartModalComponent } from './components/chart-modal/chart-modal.component';
-import { ChartSettingsComponent } from './components/chart-settings/chart-settings.component';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
+
+// Reducer and Actions
+import { chartReducer } from './store/chart/chart.reducer';
+import { ChartEffects } from './store/chart/chart.effects';
 
 @NgModule({
   declarations: [],
@@ -33,7 +33,7 @@ import { AppComponent } from './app.component';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ charts: chartReducer }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HighchartsChartModule,
@@ -47,8 +47,9 @@ import { AppComponent } from './app.component';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
+    StoreModule.forRoot({ charts: chartReducer }),
+    EffectsModule.forRoot([ChartEffects]),
   ],
   providers: [provideRouter(routes)],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
