@@ -1,8 +1,30 @@
-<mat-list *ngIf="charts$ | async as charts">
-  <mat-list-item *ngFor="let chart of charts">
-    <span matListItemTitle>{{ chart.name }}</span>
-    <button mat-icon-button color="warn" (click)="deleteChart(chart.id)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-list-item>
-</mat-list>
+<div class="chart-settings-container">
+  <h2>Chart List</h2>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="openChartModal()"
+    class="add-chart-button"
+  >
+    Add New Chart
+  </button>
+
+  <mat-list class="chart-list">
+    <mat-list-item
+      *ngFor="let chart of charts$ | async"
+      class="chart-list-item"
+    >
+      <div class="chart-list-item-content">
+        {{ chart.name }}
+        <span class="chart-list-item-actions">
+          <button mat-icon-button (click)="editChart(chart)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteChart(chart.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>

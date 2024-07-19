@@ -1,3 +1,4 @@
+// src/app/store/chart/chart.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { Chart } from './chart.model';
 
@@ -20,9 +21,12 @@ export const deleteChart = createAction(
   '[Chart] Delete Chart',
   props<{ id: string }>()
 );
-
-// New action for updating the date range
 export const updateDateRange = createAction(
   '[Chart] Update Date Range',
   props<{ startDate: string; endDate: string }>()
 );
+export const applyDateFilter = createAction(
+  '[Chart] Apply Date Filter',
+  props<{ startDate: Date; endDate: Date }>()
+);
+export const clearCharts = createAction('[Chart] Clear Charts');

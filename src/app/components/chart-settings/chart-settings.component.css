@@ -1,0 +1,69 @@
+.chart-settings-container {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  background-color: #ffffff; /* Clean white background */
+  min-height: 100vh; /* Full viewport height */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px;
+  max-width: 1200px; /* Adjust for wider screens */
+  margin: 0 auto; /* Center horizontally */
+}
+
+.chart-settings-container h2 {
+  margin-bottom: 20px;
+  font-size: 2em; /* Slightly smaller font size for better visual balance */
+  color: #333;
+  text-align: left; /* Align text to the left */
+}
+
+.add-chart-button {
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  align-self: flex-start; /* Align button to the start */
+}
+
+.chart-list {
+  width: 100%;
+}
+
+.chart-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+  background-color: #ffffff; /* Ensures items have a white background */
+}
+
+.chart-list-item:hover {
+  background-color: #f0f0f0; /* Slightly different hover color */
+}
+
+.chart-list-item-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.chart-list-item-actions {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .chart-settings-container {
+    padding: 20px; /* Reduce padding for smaller screens */
+  }
+
+  .chart-list-item-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-list-item-actions {
+    margin-top: 10px;
+  }
+}

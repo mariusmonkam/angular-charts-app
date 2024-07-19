@@ -16,8 +16,9 @@ mat-toolbar {
 
 nav {
   padding: 1rem;
-  background-color: #f0f0f0;
+
   margin-top: 1rem; /* Adds space between toolbar and navigation */
+  justify-content: center;
 }
 
 a {

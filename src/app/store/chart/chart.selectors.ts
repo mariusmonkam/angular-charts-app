@@ -1,20 +1,33 @@
+// src/app/store/chart/chart.selectors.ts
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ChartState } from './chart.reducer';
-import * as fromChart from './chart.reducer';
+import { ChartState, selectAll as selectAllCharts } from './chart.reducer';
 
-export const selectChartState = createFeatureSelector<ChartState>('charts'); // Note: it's 'charts', not 'chart'
+export const selectChartState = createFeatureSelector<ChartState>('charts');
 
-export const selectAllCharts = createSelector(
+export const selectAll = createSelector(selectChartState, selectAllCharts);
+
+export const selectEntities = createSelector(
   selectChartState,
-  fromChart.selectAll
+  (state: ChartState) => state.entities
 );
 
-export const selectChartEntities = createSelector(
+export const selectDateRange = createSelector(
   selectChartState,
-  fromChart.selectEntities
+  (state: ChartState) => state.dateRange
 );
 
-export const selectTotalCharts = createSelector(
-  selectChartState,
-  fromChart.selectTotal
+export const selectChartsWithinDateRange = createSelector(
+  selectAll,
+  selectDateRange,
+  (charts, dateRange) => {
+    if (!dateRange) {
+      return charts;
+    }
+    const { startDate, endDate } = dateRange;
+    return charts.filter(
+      (chart) =>
+        new Date(chart.startDate) >= new Date(startDate) &&
+        new Date(chart.endDate) <= new Date(endDate)
+    );
+  }
 );

@@ -1,12 +1,37 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 import { Chart } from '../../store/chart/chart.model';
 
 @Component({
   selector: 'app-chart-modal',
   templateUrl: './chart-modal.component.html',
   styleUrls: ['./chart-modal.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+  ],
 })
 export class ChartModalComponent {
   chartForm: FormGroup;

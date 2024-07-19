@@ -1,37 +1,31 @@
 <h2 mat-dialog-title>{{ data ? "Edit Chart" : "Add New Chart" }}</h2>
-<form [formGroup]="chartForm" (ngSubmit)="onSubmit()">
-  <mat-dialog-content>
+<mat-dialog-content>
+  <form [formGroup]="chartForm" class="chart-form">
     <mat-form-field>
       <mat-label>Chart Name</mat-label>
-      <input matInput formControlName="name" required />
+      <input matInput placeholder="Enter chart name" formControlName="name" />
     </mat-form-field>
-
     <mat-form-field>
       <mat-label>Chart Type</mat-label>
-      <mat-select formControlName="type" required>
+      <mat-select placeholder="Select chart type" formControlName="type">
         <mat-option value="line">Line</mat-option>
         <mat-option value="spline">Spline</mat-option>
         <mat-option value="area">Area</mat-option>
-        <mat-option value="column">Column</mat-option>
-        <mat-option value="bar">Bar</mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-form-field>
       <mat-label>Chart Color</mat-label>
-      <input matInput type="color" formControlName="color" required />
+      <input matInput type="color" formControlName="color" />
     </mat-form-field>
-  </mat-dialog-content>
-
-  <mat-dialog-actions>
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="!chartForm.valid"
-    >
-      Save
-    </button>
-  </mat-dialog-actions>
-</form>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="chartForm.value"
+    [disabled]="!chartForm.valid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>
