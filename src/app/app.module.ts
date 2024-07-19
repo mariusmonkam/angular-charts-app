@@ -29,7 +29,6 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    DateRangeFilterComponent,
     ChartModalComponent,
     // any other components
   ],

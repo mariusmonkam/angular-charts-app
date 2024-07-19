@@ -6,6 +6,11 @@
   justify-content: center;
   height: 100vh; /* Adjust as needed, ensures full viewport height */
 }
+body {
+  font-size: 16px; /* Adjust base font size */
+  margin: 0;
+  padding: 0;
+}
 
 /* Styling for the toolbar and navigation */
 mat-toolbar {
