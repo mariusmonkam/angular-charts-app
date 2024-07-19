@@ -1,4 +1,3 @@
-// src/app/store/chart/chart.reducer.ts
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as ChartActions from './chart.actions';
@@ -120,7 +119,12 @@ export const chartReducer = createReducer(
       newState = { ...newState, error: 'No chart data in local storage' };
     }
 
-    return adapter.setAll(initialCharts, newState);
+    // Ensure that initial charts are added if no data is available in local storage
+    if (adapter.getSelectors().selectAll(newState).length === 0) {
+      newState = adapter.setAll(initialCharts, newState);
+    }
+
+    return newState;
   })
 );
 

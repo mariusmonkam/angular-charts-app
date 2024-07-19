@@ -1,4 +1,3 @@
-// src/app/store/chart/chart.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { Chart } from './chart.model';
 

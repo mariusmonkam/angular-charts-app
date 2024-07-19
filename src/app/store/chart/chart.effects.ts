@@ -2,10 +2,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
+import { mergeMap, catchError, switchMap } from 'rxjs/operators';
 import * as ChartActions from './chart.actions';
 import { SQLiteChartService } from '../../services/sqlite3.service';
-import { Chart } from './chart.model';
 
 @Injectable()
 export class ChartEffects {
@@ -15,7 +14,7 @@ export class ChartEffects {
       switchMap(() =>
         this.chartService.getCharts().then(
           (charts) => ChartActions.loadChartsSuccess({ charts }),
-          (error) => ChartActions.loadChartsFailed()
+          () => ChartActions.loadChartsFailed()
         )
       )
     )
@@ -27,7 +26,7 @@ export class ChartEffects {
       mergeMap((action) =>
         this.chartService.addChart(action.chart).then(
           () => ChartActions.loadCharts(), // Reload charts after adding
-          (error) => ChartActions.loadChartsFailed()
+          () => ChartActions.loadChartsFailed()
         )
       )
     )
@@ -39,7 +38,7 @@ export class ChartEffects {
       mergeMap((action) =>
         this.chartService.updateChart(action.chart).then(
           () => ChartActions.loadCharts(), // Reload charts after updating
-          (error) => ChartActions.loadChartsFailed()
+          () => ChartActions.loadChartsFailed()
         )
       )
     )
@@ -51,7 +50,7 @@ export class ChartEffects {
       mergeMap((action) =>
         this.chartService.deleteChart(action.id).then(
           () => ChartActions.loadCharts(), // Reload charts after deleting
-          (error) => ChartActions.loadChartsFailed()
+          () => ChartActions.loadChartsFailed()
         )
       )
     )
