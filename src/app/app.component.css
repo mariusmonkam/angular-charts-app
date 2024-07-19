@@ -1,6 +1,23 @@
+/* Centering the container vertically and horizontally */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Adjust as needed, ensures full viewport height */
+}
+
+/* Styling for the toolbar and navigation */
+mat-toolbar {
+  width: 100%; /* Full width of the viewport */
+  display: flex;
+  justify-content: space-between;
+}
+
 nav {
   padding: 1rem;
   background-color: #f0f0f0;
+  margin-top: 1rem; /* Adds space between toolbar and navigation */
 }
 
 a {
@@ -12,4 +29,11 @@ a {
 a.active {
   font-weight: bold;
   color: #0066cc;
+}
+
+.router-outlet {
+  width: 100%; /* Full width of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

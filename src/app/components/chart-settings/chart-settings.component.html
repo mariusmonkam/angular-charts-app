@@ -1,2 +1,8 @@
-<h2>Chart Settings</h2>
-<p>This is where we'll manage our chart settings.</p>
+<mat-list *ngIf="charts$ | async as charts">
+  <mat-list-item *ngFor="let chart of charts">
+    <span matListItemTitle>{{ chart.name }}</span>
+    <button mat-icon-button color="warn" (click)="deleteChart(chart.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
