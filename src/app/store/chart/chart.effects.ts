@@ -1,10 +1,9 @@
-// src/app/store/chart/chart.effects.ts
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, catchError, switchMap } from 'rxjs/operators';
+import { mergeMap, catchError, map, switchMap } from 'rxjs/operators';
 import * as ChartActions from './chart.actions';
-import { SQLiteChartService } from '../../services/sqlite3.service';
+import { ChartService } from '../../services/data-storage.service';
 
 @Injectable()
 export class ChartEffects {
@@ -12,9 +11,9 @@ export class ChartEffects {
     this.actions$.pipe(
       ofType(ChartActions.loadCharts),
       switchMap(() =>
-        this.chartService.getCharts().then(
-          (charts) => ChartActions.loadChartsSuccess({ charts }),
-          () => ChartActions.loadChartsFailed()
+        this.chartService.getAllCharts().pipe(
+          map((charts) => ChartActions.loadChartsSuccess({ charts })),
+          catchError(() => of(ChartActions.loadChartsFailed()))
         )
       )
     )
@@ -24,9 +23,9 @@ export class ChartEffects {
     this.actions$.pipe(
       ofType(ChartActions.addChart),
       mergeMap((action) =>
-        this.chartService.addChart(action.chart).then(
-          () => ChartActions.loadCharts(), // Reload charts after adding
-          () => ChartActions.loadChartsFailed()
+        this.chartService.storeChart(action.chart).pipe(
+          map(() => ChartActions.loadCharts()),
+          catchError(() => of(ChartActions.loadChartsFailed()))
         )
       )
     )
@@ -36,9 +35,9 @@ export class ChartEffects {
     this.actions$.pipe(
       ofType(ChartActions.updateChart),
       mergeMap((action) =>
-        this.chartService.updateChart(action.chart).then(
-          () => ChartActions.loadCharts(), // Reload charts after updating
-          () => ChartActions.loadChartsFailed()
+        this.chartService.updateChart(action.chart).pipe(
+          map(() => ChartActions.loadCharts()),
+          catchError(() => of(ChartActions.loadChartsFailed()))
         )
       )
     )
@@ -48,16 +47,13 @@ export class ChartEffects {
     this.actions$.pipe(
       ofType(ChartActions.deleteChart),
       mergeMap((action) =>
-        this.chartService.deleteChart(action.id).then(
-          () => ChartActions.loadCharts(), // Reload charts after deleting
-          () => ChartActions.loadChartsFailed()
+        this.chartService.deleteChart(action.id).pipe(
+          map(() => ChartActions.loadCharts()),
+          catchError(() => of(ChartActions.loadChartsFailed()))
         )
       )
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private chartService: SQLiteChartService
-  ) {}
+  constructor(private actions$: Actions, private chartService: ChartService) {}
 }

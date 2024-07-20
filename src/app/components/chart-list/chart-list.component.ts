@@ -1,4 +1,3 @@
-// src/app/components/chart-list/chart-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Chart } from '../../store/chart/chart.model';
@@ -10,25 +9,28 @@ import { Store } from '@ngrx/store';
 import * as ChartActions from '../../store/chart/chart.actions';
 import { selectChartsWithinDateRange } from '../../store/chart/chart.selectors';
 import { ChartService } from '../../services/data-storage.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-chart-list',
   standalone: true,
   templateUrl: './chart-list.component.html',
   styleUrls: ['./chart-list.component.css'],
-  imports: [HighchartsChartModule, CommonModule, DateRangeFilterComponent],
+  imports: [
+    HighchartsChartModule,
+    CommonModule,
+    DateRangeFilterComponent,
+    HttpClientModule,
+  ],
 })
 export class ChartListComponent implements OnInit {
   charts$: Observable<Chart[]> = this.store.select(selectChartsWithinDateRange);
   Highcharts: typeof Highcharts = Highcharts;
 
-  constructor(private store: Store, private chartService: ChartService) {} // Inject ChartService
+  constructor(private store: Store, private chartService: ChartService) {}
 
   ngOnInit(): void {
-    this.chartService.getAllCharts().subscribe((charts) => {
-      // Update your logic to handle fetched charts (e.g., dispatch an action)
-      this.store.dispatch(ChartActions.loadChartsSuccess({ charts })); // Assuming appropriate action
-    });
+    this.store.dispatch(ChartActions.loadCharts());
   }
 
   getChartOptions(chart: Chart): Highcharts.Options {

@@ -22,7 +22,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Components
 import { CommonModule } from '@angular/common';
-import { AppComponent } from './app.component';
 
 // Reducer and Actions
 import { chartReducer } from './store/chart/chart.reducer';
@@ -31,12 +30,12 @@ import { ChartEffects } from './store/chart/chart.effects';
 @NgModule({
   declarations: [],
   imports: [
+    HttpClientModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     StoreModule.forRoot({ charts: chartReducer }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ChartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HighchartsChartModule,
     FormsModule,
@@ -49,8 +48,6 @@ import { ChartEffects } from './store/chart/chart.effects';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
-    StoreModule.forRoot({ charts: chartReducer }),
-    EffectsModule.forRoot([ChartEffects]),
   ],
   providers: [provideRouter(routes)],
 })
