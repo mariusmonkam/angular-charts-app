@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+import { MatIconModule } from '@angular/material/icon';
 
 import { Chart } from '../../store/chart/chart.model';
 
@@ -33,7 +33,7 @@ import { Chart } from '../../store/chart/chart.model';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule, // Include MatIconModule here
+    MatIconModule,
   ],
 })
 export class ChartModalComponent {
@@ -58,13 +58,15 @@ export class ChartModalComponent {
         [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)],
       ],
       labels: this.fb.array(
-        data && data.labels && data.labels.length > 0
-          ? data.labels
-          : ['A', 'B', 'C'],
+        data && data.labels
+          ? data.labels.map((label) => this.fb.control(label))
+          : [],
         Validators.required
       ),
       data: this.fb.array(
-        data && data.data ? data.data : [],
+        data && data.data
+          ? data.data.map((d) => this.fb.control(d, Validators.required))
+          : [],
         Validators.required
       ),
     });
@@ -79,7 +81,7 @@ export class ChartModalComponent {
   }
 
   addDataPoint(): void {
-    this.dataFormArray.push(this.fb.control(0)); // Default to 0 or another value as needed
+    this.dataFormArray.push(this.fb.control(0, Validators.required)); // Default to 0 or another value as needed
     this.labelsFormArray.push(this.fb.control(this.generateDefaultLabel()));
   }
 
@@ -98,28 +100,21 @@ export class ChartModalComponent {
     this.dialogRef.close();
   }
 
-  formatDate(controlName: string): void {
-    const control = this.chartForm.get(controlName);
-    if (control) {
-      const dateStr = control.value;
-      if (dateStr) {
-        const formattedDate = this.formatDateToYYYYMMDD(dateStr);
-        control.setValue(formattedDate, { emitEvent: false });
-      }
-    }
-  }
-
-  private formatDateToYYYYMMDD(dateStr: string): string {
-    const date = new Date(dateStr);
-    if (!isNaN(date.getTime())) {
-      return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-    }
-    return dateStr; // Return original if not valid
-  }
-
   private generateDefaultLabel(): string {
     const labels = this.labelsFormArray.controls;
     const nextIndex = labels.length;
     return String.fromCharCode(65 + nextIndex); // Generates "A", "B", "C", etc.
+  }
+
+  formatDate(controlName: string): void {
+    const control = this.chartForm.get(controlName);
+    if (control) {
+      const value = control.value;
+      if (value && !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        control.setErrors({ pattern: true });
+      } else {
+        control.updateValueAndValidity();
+      }
+    }
   }
 }
