@@ -9,6 +9,7 @@ import { DateRangeFilterComponent } from '../date-range-filter/date-range-filter
 import { Store } from '@ngrx/store';
 import * as ChartActions from '../../store/chart/chart.actions';
 import { selectChartsWithinDateRange } from '../../store/chart/chart.selectors';
+import { ChartService } from '../../services/data-storage.service';
 
 @Component({
   selector: 'app-chart-list',
@@ -21,10 +22,13 @@ export class ChartListComponent implements OnInit {
   charts$: Observable<Chart[]> = this.store.select(selectChartsWithinDateRange);
   Highcharts: typeof Highcharts = Highcharts;
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store, private chartService: ChartService) {} // Inject ChartService
 
   ngOnInit(): void {
-    this.store.dispatch(ChartActions.loadCharts());
+    this.chartService.getAllCharts().subscribe((charts) => {
+      // Update your logic to handle fetched charts (e.g., dispatch an action)
+      this.store.dispatch(ChartActions.loadChartsSuccess({ charts })); // Assuming appropriate action
+    });
   }
 
   getChartOptions(chart: Chart): Highcharts.Options {
