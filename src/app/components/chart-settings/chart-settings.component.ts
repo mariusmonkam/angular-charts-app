@@ -37,8 +37,16 @@ export class ChartSettingsComponent implements OnInit {
 
   openChartModal(chart?: Chart): void {
     const dialogRef = this.dialog.open(ChartModalComponent, {
-      width: '400px',
-      data: chart || {},
+      width: '600px',
+      data: chart || {
+        labels: [],
+        data: [],
+        name: '',
+        type: 'line',
+        color: '#000000',
+        startDate: '',
+        endDate: '',
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -60,5 +68,9 @@ export class ChartSettingsComponent implements OnInit {
 
   deleteChart(id: string): void {
     this.store.dispatch(ChartActions.deleteChart({ id }));
+  }
+
+  addChart(): void {
+    this.openChartModal();
   }
 }

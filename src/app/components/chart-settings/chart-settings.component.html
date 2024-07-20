@@ -1,15 +1,15 @@
 <div class="chart-settings-container">
-  <h2>Chart List</h2>
+  <h2>Chart Settings</h2>
   <button
     mat-raised-button
     color="primary"
-    (click)="openChartModal()"
+    (click)="addChart()"
     class="add-chart-button"
   >
     Add New Chart
   </button>
 
-  <mat-list class="chart-list">
+  <mat-list class="chart-settings">
     <mat-list-item
       *ngFor="let chart of charts$ | async"
       class="chart-list-item"

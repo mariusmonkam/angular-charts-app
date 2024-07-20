@@ -4,12 +4,15 @@ import { of } from 'rxjs';
 import { mergeMap, catchError, map, switchMap } from 'rxjs/operators';
 import * as ChartActions from './chart.actions';
 import { ChartService } from '../../services/data-storage.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable()
 export class ChartEffects {
+  // Example with debounceTime to prevent too frequent API calls
   loadCharts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ChartActions.loadCharts),
+      debounceTime(300), // Adjust debounce time as needed
       switchMap(() =>
         this.chartService.getAllCharts().pipe(
           map((charts) => ChartActions.loadChartsSuccess({ charts })),

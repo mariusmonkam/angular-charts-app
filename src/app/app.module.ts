@@ -14,7 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import {
+  MatOptionModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -48,7 +51,9 @@ import { ChartEffects } from './store/chart/chart.effects';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
-  providers: [provideRouter(routes)],
+  providers: [provideRouter(routes), provideNativeDateAdapter()],
 })
 export class AppModule {}

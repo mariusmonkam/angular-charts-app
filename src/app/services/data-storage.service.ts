@@ -19,7 +19,6 @@ export class ChartService {
       .pipe(
         map((response) => response.id),
         catchError((error) => {
-          console.error('Error storing chart:', error);
           return throwError(() => new Error('Failed to store chart'));
         })
       );
