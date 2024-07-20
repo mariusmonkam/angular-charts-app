@@ -37,3 +37,11 @@
   max-width: 150px; /* Limit button width */
   width: 100%; /* Button width full for smaller screens */
 }
+
+.date-range-buttons {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
+}
