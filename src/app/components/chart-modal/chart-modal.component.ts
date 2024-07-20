@@ -46,6 +46,8 @@ export class ChartModalComponent {
       name: [data ? data.name : '', Validators.required],
       type: [data ? data.type : '', Validators.required],
       color: [data ? data.color : '#000000', Validators.required],
+      startDate: [data ? data.startDate : '', Validators.required],
+      endDate: [data ? data.endDate : '', Validators.required],
     });
   }
 

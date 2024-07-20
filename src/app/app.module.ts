@@ -1,6 +1,7 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -21,7 +22,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Components
 import { CommonModule } from '@angular/common';
-import { AppComponent } from './app.component';
 
 // Reducer and Actions
 import { chartReducer } from './store/chart/chart.reducer';
@@ -30,11 +30,12 @@ import { ChartEffects } from './store/chart/chart.effects';
 @NgModule({
   declarations: [],
   imports: [
+    HttpClientModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ charts: chartReducer }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ChartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HighchartsChartModule,
     FormsModule,
@@ -47,8 +48,6 @@ import { ChartEffects } from './store/chart/chart.effects';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
-    StoreModule.forRoot({ charts: chartReducer }),
-    EffectsModule.forRoot([ChartEffects]),
   ],
   providers: [provideRouter(routes)],
 })

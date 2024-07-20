@@ -9,6 +9,10 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { chartReducer } from './store/chart/chart.reducer';
 import { ChartEffects } from './store/chart/chart.effects';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +25,6 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25,
       logOnly: !isDevMode(),
     }),
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 };
