@@ -31,6 +31,8 @@ import { ChartEffects } from './store/chart/chart.effects';
 @NgModule({
   declarations: [],
   imports: [
+    HighchartsChartModule,
+
     HttpClientModule,
     CommonModule,
     BrowserModule,
@@ -38,7 +40,6 @@ import { ChartEffects } from './store/chart/chart.effects';
     StoreModule.forRoot({ charts: chartReducer }),
     EffectsModule.forRoot([ChartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    HighchartsChartModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,

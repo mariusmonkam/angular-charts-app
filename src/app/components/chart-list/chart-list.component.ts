@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Chart } from '../../store/chart/chart.model';
 import * as Highcharts from 'highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -16,13 +16,17 @@ import memoize from 'memoize-one';
   templateUrl: './chart-list.component.html',
   styleUrls: ['./chart-list.component.css'],
   imports: [HighchartsChartModule, CommonModule, DateRangeFilterComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush, // Use OnPush strategy
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartListComponent implements OnInit {
   charts$: Observable<Chart[]> = this.store.select(selectChartsWithinDateRange);
   Highcharts: typeof Highcharts = Highcharts;
+  isHighcharts = typeof Highcharts === 'object';
+  hasCharts$: Observable<boolean>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.hasCharts$ = this.charts$.pipe(map((charts) => charts.length > 0));
+  }
 
   ngOnInit(): void {
     this.store.dispatch(ChartActions.loadCharts());
@@ -39,6 +43,10 @@ export class ChartListComponent implements OnInit {
   });
 
   trackByChartId(index: number, chart: Chart): string {
-    return chart.id; // Assuming `id` is a unique identifier for each chart
+    return chart.id;
+  }
+
+  resetFilters(): void {
+    this.store.dispatch(ChartActions.resetDateRange()); // Dispatch an action to reset the date range
   }
 }

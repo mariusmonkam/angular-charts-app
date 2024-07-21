@@ -45,7 +45,11 @@ export const chartReducer = createReducer(
   ),
   on(ChartActions.updateDateRange, (state, { startDate, endDate }) => ({
     ...state,
-    dateRange: { startDate, endDate },
+    dateRange: { startDate: startDate || '', endDate: endDate || '' },
+  })),
+  on(ChartActions.resetDateRange, (state) => ({
+    ...state,
+    dateRange: null, // Reset date range to null
   }))
 );
 

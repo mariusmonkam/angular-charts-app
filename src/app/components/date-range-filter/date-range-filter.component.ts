@@ -37,6 +37,8 @@ export class DateRangeFilterComponent implements OnInit, OnDestroy {
     endDate: string | null;
   }>();
 
+  @Output() resetFilter = new EventEmitter<void>();
+
   constructor(private fb: FormBuilder, private store: Store) {
     this.dateRangeForm = this.fb.group({
       startDate: [null],
