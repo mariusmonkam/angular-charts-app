@@ -2,11 +2,29 @@
 
 ## Important Notes
 
-- **Firebase Backend**: We use Firebase Realtime Database for the backend to provide real-time updates and seamless data synchronization. This choice supports efficient data handling and scalability for the project.
+- **Firebase Realtime Database**: We use Firebase Realtime Database to provide real-time updates and seamless data synchronization. This choice supports efficient data handling and scalability for the project.
 
 - **Firebase Credentials**: For review purposes, Firebase credentials have been committed to the repository. In a professional setting, these credentials should be stored securely and managed through environment variables. Ensure to add the `src/environments/environment.ts` file to `.gitignore` to prevent accidental exposure of sensitive information.
 
 - **Security**: Always handle sensitive information such as API keys and credentials through environment variables. Configure these in `src/environments/environment.ts` and ensure that this file is not committed to version control.
+
+## Technologies Used
+
+- **Angular**: Framework for building the frontend of the application, providing a robust structure for single-page applications (SPAs) with modular development and dependency injection.
+
+- **NgRx**: State management library for Angular applications, used for managing application state in a predictable way, ensuring a consistent and maintainable state across the application.
+
+- **Highcharts**: Library for creating interactive charts, used to visualize data in a user-friendly manner.
+
+- **Angular Material**: UI component library for Angular applications, providing modern and responsive components for user interfaces.
+
+- **Firebase Realtime Database**: Used as the backend to handle data storage and real-time updates.
+
+## Setup and Configuration
+
+For detailed setup instructions, refer to the documentation on setting up Angular, NgRx, and Firebase.
+
+For any additional configuration specific to this project, refer to the respective technology documentation.
 
 For more detailed information on Firebase setup and configuration, refer to the official [Firebase documentation](https://firebase.google.com/docs).
 
