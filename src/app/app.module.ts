@@ -22,8 +22,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
-// Components
 import { CommonModule } from '@angular/common';
 
 // Reducer and Actions
@@ -51,8 +49,6 @@ import { ChartEffects } from './store/chart/chart.effects';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
   ],
   providers: [provideRouter(routes), provideNativeDateAdapter()],
 })

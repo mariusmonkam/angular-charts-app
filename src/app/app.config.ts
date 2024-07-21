@@ -5,12 +5,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-
 import { routes } from './app.routes';
 import { chartReducer } from './store/chart/chart.reducer';
 import { ChartEffects } from './store/chart/chart.effects';
 import {
   provideHttpClient,
+  withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -26,6 +26,10 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25,
       logOnly: !isDevMode(),
     }),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(
+      withFetch(), // Enable fetch for HttpClient
+      withInterceptorsFromDi()
+    ),
+    provideNativeDateAdapter(),
   ],
 };
