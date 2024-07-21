@@ -8,11 +8,10 @@ import { debounceTime } from 'rxjs/operators';
 
 @Injectable()
 export class ChartEffects {
-  // Example with debounceTime to prevent too frequent API calls
   loadCharts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ChartActions.loadCharts),
-      debounceTime(300), // Adjust debounce time as needed
+      debounceTime(300),
       switchMap(() =>
         this.chartService.getAllCharts().pipe(
           map((charts) => ChartActions.loadChartsSuccess({ charts })),
@@ -52,6 +51,19 @@ export class ChartEffects {
       mergeMap((action) =>
         this.chartService.deleteChart(action.id).pipe(
           map(() => ChartActions.loadCharts()),
+          catchError(() => of(ChartActions.loadChartsFailed()))
+        )
+      )
+    )
+  );
+
+  // Effect to handle resetting date range and loading all charts
+  resetDateRange$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ChartActions.resetDateRange),
+      switchMap(() =>
+        this.chartService.getAllCharts().pipe(
+          map((charts) => ChartActions.loadChartsSuccess({ charts })),
           catchError(() => of(ChartActions.loadChartsFailed()))
         )
       )

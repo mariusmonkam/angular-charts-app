@@ -22,10 +22,11 @@ export const deleteChart = createAction(
 );
 export const updateDateRange = createAction(
   '[Chart] Update Date Range',
-  props<{ startDate: string; endDate: string }>()
+  props<{ startDate: string | null; endDate: string | null }>()
 );
 export const applyDateFilter = createAction(
   '[Chart] Apply Date Filter',
   props<{ startDate: Date; endDate: Date }>()
 );
 export const clearCharts = createAction('[Chart] Clear Charts');
+export const resetDateRange = createAction('[Chart] Reset Date Range');
