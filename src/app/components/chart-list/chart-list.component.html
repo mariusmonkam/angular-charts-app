@@ -3,7 +3,10 @@
 
 <div class="chart-container">
   <ng-container *ngIf="charts$ | async as charts">
-    <div *ngFor="let chart of charts" class="chart-item">
+    <div
+      *ngFor="let chart of charts; trackBy: trackByChartId"
+      class="chart-item"
+    >
       <h3>{{ chart.name }}</h3>
       <highcharts-chart
         [Highcharts]="Highcharts"
