@@ -1,5 +1,15 @@
 # AngularChartsApp
 
+## Important Notes
+
+- **Firebase Backend**: We use Firebase Realtime Database for the backend to provide real-time updates and seamless data synchronization. This choice supports efficient data handling and scalability for the project.
+
+- **Firebase Credentials**: For review purposes, Firebase credentials have been committed to the repository. In a professional setting, these credentials should be stored securely and managed through environment variables. Ensure to add the `src/environments/environment.ts` file to `.gitignore` to prevent accidental exposure of sensitive information.
+
+- **Security**: Always handle sensitive information such as API keys and credentials through environment variables. Configure these in `src/environments/environment.ts` and ensure that this file is not committed to version control.
+
+For more detailed information on Firebase setup and configuration, refer to the official [Firebase documentation](https://firebase.google.com/docs).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
 ## Development server
